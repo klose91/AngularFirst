@@ -18,7 +18,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-3">
-            <img alt="{{user.name.first + user.name.last}}" src="{{user.picture.thumbnail}}" class="img-fluid rounded" />
+            <img alt="{{user.name.first + user.name.last}}" src="{{user.picture.medium}}" class="img-fluid rounded" />
           </div>
           <div class="col-9">
             <strong>Information</strong>
@@ -27,7 +27,27 @@
                 <tbody>
                   <tr>
                     <td>Name</td>
-                    <td class="text-primary">{{user.name.first + user.name.last}} (<span class="fas fa-{{getUserSex(user.gender)}}"></span> {{user.dob.age}})</td>
+                    <td class="text-primary">{{user.name.first + ' ' + user.name.last}} (<span class="fas fa-{{getUserSex(user.gender)}}"></span> {{user.dob.age}})</td>
+                  </tr>
+                  <tr>
+                    <td>Adress</td>
+                    <td>
+                      <address>
+                        {{user.location.street}}
+                        {{user.location.postcode}} {{user.location.city}}
+                        {{user.location.state}}
+                        {{user.location.country}}
+                        <a href="https://maps.google.com/?q={{location.coordinates.latitude}},{{location.coordinates.longitude}}&z=4"><span class="fas fa-maps"></span> Open in Google Maps</a>
+                      </address>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Contact</td>
+                    <td>
+                      <a href="tel:{{user.phone}}"><span class="fas fa-phone"></span> {{user.phone}}</a>
+                      <a href="tel:{{user.cell}}"><span class="fas fa-mobile"></span> {{user.cell}}</a>
+                      <a href="mailto:{{user.email}}"><span class="fas fa-envelope"></span> {{user.email}}</a>
+                    </td>
                   </tr>
                 </tbody>
               </table>
