@@ -1,0 +1,40 @@
+<h1 id="userTable">User</h1>
+
+<div class="form-group" *ngIf="!users">
+  <div class="row">
+    <label class="col-6 col-form-label">Number of Users</label>
+    <input class="col-6 form-control" type="number" min="1" max="50" [(ngModel)]="numberOfUsers" />
+  </div>
+  <div class="row">
+    <button (click)="getRandomUser()" class="btn-primary btn">Load users</button>
+  </div>
+</div>
+
+<p *ngIf="users">Users</p>
+
+<div class="row">
+  <div class="col-6" *ngFor="let user of users">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-3">
+            <img alt="{{user.name.first + user.name.last}}" src="{{user.picture.thumbnail}}" class="img-fluid rounded" />
+          </div>
+          <div class="col-9">
+            <strong>Information</strong>
+            <div class="table-responsive">
+              <table class="table-responsive table-striped table-hover table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Name</td>
+                    <td class="text-primary">{{user.name.first + user.name.last}} (<span class="fas fa-{{getUserSex(user.gender)}}"></span> {{user.dob.age}})</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
