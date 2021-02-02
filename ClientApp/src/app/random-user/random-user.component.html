@@ -1,6 +1,6 @@
 <h1 id="userTable">User</h1>
 
-<div class="form-group" *ngIf="!users">
+<div class="form-group">
   <div class="row">
     <label class="col-6 col-form-label">Number of Users</label>
     <input class="col-6 form-control" type="number" min="1" max="50" [(ngModel)]="numberOfUsers" />
@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<p *ngIf="users">Users</p>
+<p *ngIf="!users">Loading...</p>
 
 <div class="row">
   <div class="col-6" *ngFor="let user of users">
@@ -33,20 +33,20 @@
                     <td>Adress</td>
                     <td>
                       <address>
-                        {{user.location.street}}
-                        {{user.location.postcode}} {{user.location.city}}
-                        {{user.location.state}}
-                        {{user.location.country}}
-                        <a href="https://maps.google.com/?q={{location.coordinates.latitude}},{{location.coordinates.longitude}}&z=4"><span class="fas fa-maps"></span> Open in Google Maps</a>
+                        {{user.location.street.name}} {{user.location.street.number}} <br />
+                        {{user.location.postcode}} {{user.location.city}} <br />
+                        {{user.location.state}} <br />
+                        {{(user.location.country != null ? user.location.country : '')}} <br />
+                        <a *ngIf="user.coordinates" href="https://maps.google.com/?q={{location.coordinates.latitude}},{{location.coordinates.longitude}}&z=4"><span class="fas fa-maps"></span> Open in Google Maps</a>
                       </address>
                     </td>
                   </tr>
                   <tr>
                     <td>Contact</td>
                     <td>
-                      <a href="tel:{{user.phone}}"><span class="fas fa-phone"></span> {{user.phone}}</a>
-                      <a href="tel:{{user.cell}}"><span class="fas fa-mobile"></span> {{user.cell}}</a>
-                      <a href="mailto:{{user.email}}"><span class="fas fa-envelope"></span> {{user.email}}</a>
+                      <a *ngIf="user.phone" href="tel:{{user.phone}}"><span class="fas fa-phone"></span> {{user.phone}}</a><br />
+                      <a *ngIf="user.cell" href="tel:{{user.cell}}"><span class="fas fa-mobile"></span> {{user.cell}}</a><br />
+                      <a *ngIf="user.email" href="mailto:{{user.email}}"><span class="fas fa-envelope"></span> {{user.email}}</a><br />
                     </td>
                   </tr>
                 </tbody>
