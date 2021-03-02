@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
+using AngularFirst.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +25,13 @@ namespace AngularFirst
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<AngularDbContext>(b =>
+            {
+                b.UseSqlServer(
+                    Configuration.GetConnectionString("AngularDbString"),
+                    opt => opt.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), new List<int>())
+                ).UseLazyLoadingProxies();
+            });
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
